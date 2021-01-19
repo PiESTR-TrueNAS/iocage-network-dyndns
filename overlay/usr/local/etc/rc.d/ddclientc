@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# PROVIDE: ddclient
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following line to /etc/rc.conf to enable ddclient:
+#
+# ddclientc_enable (bool):  Set to NO by default.
+#                           Set it to YES to enable ddclient.
+# ddclientc_conf (path):    Path to ddclient configuration file.
+#                           Default is /usr/local/etc/ddclient.conf
+# ddclientc_daemon (bool):  Set to NO by default.
+#                           Set it to YES to daemonize ddclient.
+#
+# By default, ddclient does not daemonize.  To launch ddclient
+# as a daemon, add the -daemon 300 argument to ddclient_flags
+#
+
+. /etc/rc.subr
+
+name="ddclientc"
+rcvar=ddclientc_enable
+
+load_rc_config ${name}
+: ${ddclientc_enable:="NO"}
+: ${ddclientc_conf:="/usr/local/etc/ddclient.conf"}
+
+# command="/usr/local/sbin/${name}"
+# required_files="/usr/local/etc/${name}.conf"
+
+pidfile="/var/run/ddclient.pid"
+command="/usr/local/sbin/${name}"
+command_args="-file ${ddclientc_conf}"
+
+run_rc_command "$1"
