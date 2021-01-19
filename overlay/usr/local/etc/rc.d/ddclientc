@@ -26,11 +26,8 @@ load_rc_config ${name}
 : ${ddclientc_enable:="NO"}
 : ${ddclientc_conf:="/usr/local/etc/ddclient.conf"}
 
-# command="/usr/local/sbin/${name}"
-# required_files="/usr/local/etc/${name}.conf"
-
 pidfile="/var/run/ddclient.pid"
-command="/usr/local/sbin/${name}"
+command="/usr/local/sbin/ddclient"
 command_args="-file ${ddclientc_conf}"
 
 run_rc_command "$1"
